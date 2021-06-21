@@ -15,14 +15,15 @@ public class CustomerInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Customer");
         setContentView(R.layout.activity_customer_info);
         name = findViewById(R.id.name_customer);
         email = findViewById(R.id.email_customer);
         balance = findViewById(R.id.balance_customer);
         Bundle extras = getIntent().getExtras();
-        name.setText(extras.getString("NAME"));
-        email.setText(extras.getString("EMAIL"));
-        balance.setText(String.valueOf(extras.getDouble("BALANCE")));
+        name.setText("Name : " + extras.getString("NAME"));
+        email.setText("Email : "  + extras.getString("EMAIL"));
+        balance.setText("Balance : "  + String.valueOf(extras.getDouble("BALANCE")));
         ID = extras.getInt("CUSTOMER_ID");
 
         transferButton = findViewById(R.id.button_transfer);

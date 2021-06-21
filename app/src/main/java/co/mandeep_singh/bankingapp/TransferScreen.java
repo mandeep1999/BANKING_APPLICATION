@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ public class TransferScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Transaction");
         setContentView(R.layout.activity_tranfer_screen);
         transferAmount = findViewById(R.id.transferAmount);
         button = findViewById(R.id.button_confirm);
@@ -39,7 +41,15 @@ public class TransferScreen extends AppCompatActivity {
                 db.updateCustomer(customer,Double.parseDouble(transferAmount.getText().toString()));
                 db.addTransaction(new Transaction(ID,Double.parseDouble(transferAmount.getText().toString())));
                 Intent i = new Intent(getApplicationContext(),AllCustomers.class);
-                startActivity(i);
+                Toast.makeText(getApplicationContext(),"Hurray !! Added successfully", Toast.LENGTH_SHORT).show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                    }
+                },2000);
             }}
         });
     }
